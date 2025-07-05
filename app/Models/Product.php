@@ -109,6 +109,11 @@ class Product extends Model
         return $this->belongsToMany(Promotion::class, 'product_promotions');
     }
 
+    public function productPromotions()
+    {
+        return $this->hasMany(ProductPromotion::class);
+    }
+
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);

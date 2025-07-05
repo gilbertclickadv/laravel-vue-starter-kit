@@ -14,10 +14,12 @@ class Category extends Model
         'description',
         'parent_id',
         'status',
+        'sort_order',
     ];
 
     protected $casts = [
         'status' => 'string',
+        'sort_order' => 'integer',
     ];
 
     // Relationships
@@ -61,6 +63,11 @@ class Category extends Model
     {
         return $query->whereMonth('created_at', now()->month)
                     ->whereYear('created_at', now()->year);
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order', 'asc');
     }
 
     // Accessors

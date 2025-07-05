@@ -66,6 +66,14 @@ const coreItems: NavItem[] = [
     },
 ];
 
+const settingsItems: NavItem[] = [
+    {
+        title: 'Homepage Sections',
+        href: '/admin/homepage-sections',
+        icon: LayoutGrid,
+    },
+];
+
 const footerNavItems: NavItem[] = [
     {
         title: 'Github Repo',
@@ -100,6 +108,11 @@ const footerNavItems: NavItem[] = [
             <SidebarGroup class="px-2 py-0">
                 <SidebarGroupLabel>Core Management</SidebarGroupLabel>
                 <NavMenu :items="coreItems" />
+            </SidebarGroup>
+
+            <SidebarGroup class="px-2 py-0">
+                <SidebarGroupLabel>Settings</SidebarGroupLabel>
+                <NavMenu :items="settingsItems" />
             </SidebarGroup>
         </SidebarContent>
 

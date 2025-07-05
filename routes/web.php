@@ -1,24 +1,29 @@
 <?php
 
-use App\Http\Controllers\Settings\ProfileController;
-use App\Http\Controllers\VendorController;
+use App\Http\Controllers\Admin\HomepageSectionController;
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
+use App\Http\Controllers\ProductPromotionController;
+use App\Http\Controllers\ProductVariantAttributeController;
+use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ShippingAddressController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Settings\ProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard', [
@@ -53,6 +58,14 @@ Route::get('vendors/{vendor}/available-users', [VendorController::class, 'getAva
     Route::resource('orders', OrderController::class);
     Route::resource('reviews', ReviewController::class);
     Route::resource('promotions', PromotionController::class);
+});
+
+// Admin routes
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    // Homepage Sections
+    Route::resource('homepage-sections', HomepageSectionController::class);
+    
+    // ... other admin routes ...
 });
 
 require __DIR__.'/auth.php';
